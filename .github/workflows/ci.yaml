@@ -552,18 +552,12 @@ jobs:
         CIBW_BUILD: ${{ matrix.spec }}
         CIBW_ARCHS_ANDROID: all
         CIBW_PLATFORM: android
-        # Copy libffi into the Python prefix so it's found via the paths Android toolchain already sets
-        CIBW_BEFORE_BUILD: >
-          python_prefix=$(python -c "import sys; print(sys.prefix)") &&
-          cp -r ${LIBFFI_ANDROID_DIR}/include/* ${python_prefix}/include/ &&
-          cp -r ${LIBFFI_ANDROID_DIR}/lib/* ${python_prefix}/lib/
         CIBW_TEST_REQUIRES: pytest setuptools
         CIBW_TEST_SOURCES: cffi
         # Running tests from `testing/` will not work since they try to compile C code on device
         CIBW_TEST_COMMAND: python -m pytest -sv cffi/src/c/
-        CIBW_ENVIRONMENT: PYTHONUNBUFFERED=1
-        # Pass through our custom env vars
-        CIBW_ENVIRONMENT_PASS_ANDROID: LIBFFI_ANDROID_DIR PYTHONUNBUFFERED
+        # Pass LIBFFI_ANDROID_DIR into the cross-build environment so setup.py can use it
+        CIBW_ENVIRONMENT_PASS_ANDROID: LIBFFI_ANDROID_DIR
       run: |
         set -eux
 
