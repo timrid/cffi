@@ -494,12 +494,12 @@ jobs:
         matrix_yaml: |
           include:
           # arm64 Android device
-          - { spec: cp313-android_21_arm64_v8a, libffi_arch: aarch64-linux-android }
-          - { spec: cp314-android_21_arm64_v8a, libffi_arch: aarch64-linux-android }
+          - { spec: cp313-android_arm64_v8a, libffi_arch: aarch64-linux-android }
+          - { spec: cp314-android_arm64_v8a, libffi_arch: aarch64-linux-android }
 
           # x86_64 Android (emulator)
-          - { spec: cp313-android_21_x86_64, libffi_arch: x86_64-linux-android }
-          - { spec: cp314-android_21_x86_64, libffi_arch: x86_64-linux-android }
+          - { spec: cp313-android_x86_64, libffi_arch: x86_64-linux-android }
+          - { spec: cp314-android_x86_64, libffi_arch: x86_64-linux-android }
 
   android:
     needs: [python_sdist, make_android_matrix]
@@ -550,7 +550,7 @@ jobs:
       id: build
       env:
         CIBW_BUILD: ${{ matrix.spec }}
-        CIBW_ENABLE: cpython-prerelease
+        CIBW_ARCHS_ANDROID: all
         CIBW_PLATFORM: android
         CIBW_TEST_REQUIRES: pytest setuptools
         CIBW_TEST_SOURCES: cffi
