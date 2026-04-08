@@ -558,8 +558,8 @@ jobs:
         CIBW_TEST_COMMAND: python -m pytest -sv cffi/src/c/
         # Environment variables for the build
         CIBW_ENVIRONMENT: >
-          CFLAGS="-I${LIBFFI_ANDROID_DIR}/include"
-          LDFLAGS="-L${LIBFFI_ANDROID_DIR}/lib"
+          CFLAGS="$CFLAGS -I${LIBFFI_ANDROID_DIR}/include"
+          LDFLAGS="$LDFLAGS -L${LIBFFI_ANDROID_DIR}/lib"
           PYTHONUNBUFFERED=1
         # Pass through our custom env vars
         CIBW_ENVIRONMENT_PASS_ANDROID: LIBFFI_ANDROID_DIR PYTHONUNBUFFERED
