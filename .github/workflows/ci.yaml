@@ -575,7 +575,7 @@ jobs:
         name: ${{ steps.build.outputs.artifact_name }}
         path: dist/*.whl
         if-no-files-found: error
-      if: ${{ env.skip_artifact_upload != 'true' }}
+      # if: ${{ env.skip_artifact_upload != 'true' }}
 
   merge_artifacts:
     needs: [python_sdist, linux, macos, windows, ios, android]
